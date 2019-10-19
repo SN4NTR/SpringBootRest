@@ -1,7 +1,6 @@
-package com.company.entity;
+package com.company.springbootrest.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,11 +13,10 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name = "students")
+@Table(name = "users")
 @NoArgsConstructor
-@AllArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Student {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,4 +24,12 @@ public class Student {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "password")
+    private String password;
+
+    public User(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
 }

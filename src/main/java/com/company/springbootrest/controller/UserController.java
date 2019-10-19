@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,5 +41,12 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
         userService.delete(id);
+    }
+
+    @PutMapping("/{id}")
+    public void edit(@PathVariable int id,
+                     @RequestParam(name = "name") String name,
+                     @RequestParam(name = "password") String password) {
+        userService.save(new User(id, name, password));
     }
 }

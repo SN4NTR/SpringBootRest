@@ -13,4 +13,6 @@ public interface UserService {
     User getById(int id);
 
     List<User> getAll();
+
+    void edit(User user);
 }

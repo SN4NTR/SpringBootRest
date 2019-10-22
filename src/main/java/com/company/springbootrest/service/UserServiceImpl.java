@@ -1,5 +1,6 @@
 package com.company.springbootrest.service;
 
+import com.company.springbootrest.entity.Role;
 import com.company.springbootrest.entity.User;
 import com.company.springbootrest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
+        user.setRole(Role.ROLE_USER);
         user.setCreated(new Date(new java.util.Date().getTime()));
         userRepository.save(user);
     }
@@ -37,6 +39,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void edit(User user) {
+        user.setRole(userRepository.getOne(user.getId()).getRole());
         user.setCreated(userRepository.getOne(user.getId()).getCreated());
         userRepository.save(user);
     }

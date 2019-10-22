@@ -5,6 +5,7 @@ import com.company.springbootrest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -15,6 +16,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
+        user.setCreated(new Date(new java.util.Date().getTime()));
         userRepository.save(user);
     }
 
@@ -35,6 +37,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void edit(User user) {
+        user.setCreated(userRepository.getOne(user.getId()).getCreated());
         userRepository.save(user);
     }
 }

@@ -12,6 +12,8 @@ public interface UserService {
 
     User getById(int id);
 
+    User findByEmail(String email);
+
     List<User> getAll();
 
     void edit(User user);

@@ -1,11 +1,9 @@
 package com.company.springbootrest.service;
 
 import com.company.springbootrest.entity.Post;
+import com.company.springbootrest.entity.User;
 import com.company.springbootrest.repository.PostRepository;
-import com.company.springbootrest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,15 +14,8 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private PostRepository postRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
     @Override
     public void save(Post post) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        String username = authentication.getName();
-        post.setUser(userRepository.findByEmail(username));
         postRepository.save(post);
     }
 
@@ -45,6 +36,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void edit(Post post) {
+        User user = postRepository.getOne(post.getId()).getUser();
+        post.setUser(user);
         postRepository.save(post);
     }
 }

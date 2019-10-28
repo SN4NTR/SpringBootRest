@@ -1,6 +1,5 @@
 package com.company.springbootrest.config;
 
-import com.company.springbootrest.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -30,7 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/posts/**").hasRole("ADMIN")
                     .antMatchers("/users/**").hasAnyRole("USER", "ADMIN")
                 .and()
-                    .httpBasic();
+                    .httpBasic()
+                .and()
+                    .csrf().disable();
     }
 
     @Override

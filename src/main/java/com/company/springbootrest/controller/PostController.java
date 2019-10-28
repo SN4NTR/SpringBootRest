@@ -1,6 +1,8 @@
 package com.company.springbootrest.controller;
 
 import com.company.springbootrest.entity.Post;
+import com.company.springbootrest.entity.User;
+import com.company.springbootrest.repository.UserRepository;
 import com.company.springbootrest.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -20,6 +23,9 @@ public class PostController {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping
     public List<Post> getAll() {
@@ -32,7 +38,10 @@ public class PostController {
     }
 
     @PostMapping("/add")
-    public void save(@RequestBody Post post) {
+    public void save(@RequestParam int userId,
+                     @RequestBody Post post) {
+        User user = userRepository.getOne(userId);
+        post.setUser(user);
         postService.save(post);
     }
 

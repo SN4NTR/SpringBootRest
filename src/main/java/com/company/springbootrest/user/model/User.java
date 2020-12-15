@@ -1,23 +1,20 @@
-package com.company.springbootrest.entity;
+package com.company.springbootrest.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Date;
-import java.util.List;
+
+import static javax.persistence.EnumType.STRING;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Data
 @Entity
@@ -29,7 +26,7 @@ public class User {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     private int id;
 
     @Column(name = "name")
@@ -44,12 +41,7 @@ public class User {
     @Column(name = "created_at")
     private Date created;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(STRING)
     @Column(name = "role")
     private Role role;
-
-    @OneToMany(fetch = FetchType.LAZY,
-            cascade = CascadeType.REMOVE,
-            mappedBy = "user")
-    private List<Post> posts;
 }

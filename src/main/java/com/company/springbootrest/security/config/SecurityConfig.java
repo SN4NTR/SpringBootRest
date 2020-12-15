@@ -1,4 +1,4 @@
-package com.company.springbootrest.config;
+package com.company.springbootrest.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

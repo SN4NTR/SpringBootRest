@@ -1,8 +1,8 @@
-package com.company.springbootrest.controller;
+package com.company.springbootrest.user.controller;
 
-import com.company.springbootrest.entity.User;
-import com.company.springbootrest.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.company.springbootrest.user.model.User;
+import com.company.springbootrest.user.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @GetMapping
     public List<User> getAll() {
@@ -27,23 +27,23 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User getById(@PathVariable int id) {
+    public User getById(@PathVariable final Integer id) {
         return userService.getById(id);
     }
 
-    @PostMapping("/add")
-    public void save(@RequestBody User user) {
+    @PostMapping
+    public void save(@RequestBody final User user) {
         userService.save(user);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id) {
+    public void delete(@PathVariable final Integer id) {
         userService.delete(id);
     }
 
     @PutMapping("/{id}")
-    public void edit(@PathVariable int id, @RequestBody User user) {
+    public void edit(@PathVariable final Integer id, @RequestBody final User user) {
         user.setId(id);
-        userService.edit(user);
+        userService.update(user);
     }
 }
